@@ -121,20 +121,23 @@ COPY_LATEST_ARCHS() {
     if [ "${MODE}" = "save" ]; then
         rm -rf "${TEMP_DIR}" && mkdir -p "${TEMP_DIR}"
         for ARCH in "${ARCHS[@]}"; do
-            if [ -d "${JMBQ_PATH}/${ARCH}" ] && [ "$(ls -A "${JMBQ_PATH}/${ARCH}" 2>/dev/null)" ]; then
-                cp -r "${JMBQ_PATH}/${ARCH}" "${TEMP_DIR}/"
-                echo "  -> 已从根目录成功备份最新架构: ${ARCH}"
+            if [ -f "${JMBQ_PATH}/${ARCH}" ]; then
+                cp "${JMBQ_PATH}/${ARCH}" "${TEMP_DIR}/"
+                echo "  -> 已从根目录成功备份最新补丁文件: ${ARCH}"
             fi
         done
         echo "✓ 最新版本补丁已成功提取到临时目录"
     elif [ "${MODE}" = "restore" ] && [ -d "${TEMP_DIR}" ]; then
         mkdir -p "${JMBQ_PATH}/assets/arch"
         for ARCH in "${ARCHS[@]}"; do
-            if [ -d "${TEMP_DIR}/${ARCH}" ]; then
-                # 旧版本中补丁库文件是在 assets/arch/ 下的，在此处进行替换
-                rm -rf "${JMBQ_PATH}/assets/arch/${ARCH}"
-                cp -r "${TEMP_DIR}/${ARCH}" "${JMBQ_PATH}/assets/arch/" || return 1
-                echo "  -> 已用最新补丁替换旧版: ${ARCH}"
+            # 检查临时目录里备份的文件
+            if [ -f "${TEMP_DIR}/${ARCH}" ]; then
+                # 删除旧版本 assets/arch/ 下的同名旧文件
+                rm -f "${JMBQ_PATH}/assets/arch/${ARCH}"
+                
+                # 替换补丁库文件
+                cp "${TEMP_DIR}/${ARCH}" "${JMBQ_PATH}/assets/arch/" || return 1
+                echo "  -> 已用最新补丁文件替换旧版: ${ARCH}"
             fi
         done
         echo "✓ 最新版本补丁已替换到旧版结构中"
@@ -149,7 +152,7 @@ VALIDATE_MOD_PATCH() {
     # 1. 检查 assets/arch 中是否有任意补丁库
     local HAS_ARCH=0
     for ARCH in "${ARCHS[@]}"; do
-        [ -d "${JMBQ_PATH}/assets/arch/${ARCH}" ] && HAS_ARCH=1
+        [ -d "${JMBQ_PATH}/assets/arch" ] && [ -f "${JMBQ_PATH}/assets/arch/${ARCH}" ] && HAS_ARCH=1
     done
 
     # 2. 检查是否存在 smali_classes* 文件夹（已去除纯 smali 检测）
