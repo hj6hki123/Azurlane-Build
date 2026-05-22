@@ -9,9 +9,9 @@ on:
         type: choice
         options:
           - 'TW'
-          - 'EN'
-          - 'JP'
-          - 'KR'
+          # - 'EN'
+          # - 'JP'
+          # - 'KR'
 jobs:
   build:
     runs-on: ubuntu-latest

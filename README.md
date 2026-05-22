@@ -1,88 +1,60 @@
 <div align="center">
-  <img src="https://count.getloli.com/@azurlanejmbq?name=azurlanejmbq&theme=moebooru&padding=7&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="访问计数" />
-  <h3 align="center">Azurlane Build</h3>
+  <h3 align="center">Azurlane Build (TW Only Fork)</h3>
 
-  ![forks](https://img.shields.io/github/forks/Chtholly344/Azurlane-Build.svg?style=flat&label=分支数)
-  ![stars](https://img.shields.io/github/stars/Chtholly344/Azurlane-Build?style=flat&label=星标数)
-  ![issues](https://img.shields.io/github/issues/Chtholly344/Azurlane-Build)
   <p align="center">
-    使用Github Workflow自动构建对应区服的APK/XAPK
+    本 fork 僅維護 <b>台服 (TW)</b> 的 XAPK 自動構建
     <br />
-    <br />
-    <a>发现问题？提交</a>
-    <a href="https://github.com/Chtholly344/Azurlane-Build/issues">Issue</a>
+    Fork 自 <a href="https://github.com/Chtholly344/Azurlane-Build">Chtholly344/Azurlane-Build</a>
   </p>
-
 </div>
 
 ---
 
 ## ⚠️ 重要提示
 
-## 因为我本人已经不怎么玩这个游戏了，更新完全随缘，而且现在AI编写代码的能力已经比较可观了，如果你有一定的了解可以自行fork修改，所以不要过于期待本仓库的更新
+本項目僅用於學習和研究，請在遵守相關法律法規的前提下使用，若違規使用導致的一切後果由使用者本人承擔。
 
-本项目仅用于学习和研究，请在遵守相关法律法规的前提下使用本项目，若您违规使用使用本项目，那么所导致的一切后果将由您本人承担。
-
-- **风险警告**：使用mod可能涉及未知风险，如果您坚持使用，那么您将承担可能会造成的任何后果，包括但不限于您的游戏账号被封禁
-- **登录问题**：重新打包的APK签名与官方版本不同，可能导致第三方授权登录失败。请优先使用二维码或验证码登录。
+- **風險警告**：使用 mod 可能涉及未知風險，包括但不限於遊戲帳號被封禁
+- **登入問題**：重新打包的 APK 簽名與官方版本不同，第三方授權登入會失敗。請使用 Yostar 帳號 / 信箱驗證碼登入
 
 ---
 
-## 各渠道服安装包官方下载地址
-若您有一定的动手能力，请自行fork本仓库，手动运行工作流来获取对应的APK
+## 🚀 如何構建最新 TW 版本
 
-⚠️⚠️⚠️ 注意！！！
-- **OPPO**和**4399**渠道服请自行下载安装包，上传网盘后获取直链下载
+### 方法 A：一鍵構建（推薦）
+1. 進入 [Actions](../../actions) 分頁
+2. 左側選 **Build TW (One-Click)**
+3. 點右上 **Run workflow** → **Run workflow**
+4. 等待 5–10 分鐘，到 [Releases](../../releases) 下載 7z 分卷
 
-<div align="center" style="margin: 10px 0;">
-  <a href="https://app.mi.com/details?id=com.bilibili.blhx.mi"><img src="images/xiaomi.svg" width="32" style="margin: 0 5px;"></a>
-  <a href="https://sj.qq.com/appdetail/com.tencent.tmgp.bilibili.blhx"><img src="images/yingyongbao.svg" width="32" style="margin: 0 5px;"></a>
-  <a href="https://www.9game.cn/bilanhangxian"><img src="images/jiuyou.svg" width="32" style="margin: 0 5px;"></a>
-  <a href="https://game.vivo.com.cn/#/detail/56580"><img src="images/vivo.svg" width="32" style="margin: 0 5px;"></a>
-  <a href="https://a.4399.cn/game-id-107008.html"><img src="images/4399.svg" width="32" style="margin: 0 5px;"></a>
-  <a href="https://game.oppomobile.com/about/index2.html"><img src="images/oppo.svg" width="32" style="margin: 0 5px;"></a>
-  <a href="https://app.so.com/detail/index?pname=com.bilibili.blhx.qihoo&id=3804929"><img src="images/360.svg" width="32" style="margin: 0 5px;"></a>
-  <a href="https://game.mlinkapp.com/game/detail/3162763?contentId=3162763"><img src="images/meizu.svg" width="32" style="margin: 0 5px;"></a>
-</div>
+### 方法 B：使用原 workflow
+1. 進入 Actions → **XAPK AzurLane JMBQ Build Work**
+2. Run workflow → 選 `TW`（其他區服已註解）→ Run
 
----
-## 项目目录
-```
-
-├── 📁 .github
-│    └── 📁 workflows
-│    ├── ⚙️ main.yml
-│    └── ⚙️ xapk.yml
-├── 📁 images
-├── 📁 key
-│    ├── 📄 testkey.pk8
-│    └── 📄 testkey.x509.pem
-├── ⚙️ .gitignore
-├── 📝 README.md
-└── 📄 merge_build.sh  # 构建脚本
-
+### 方法 C：gh CLI
+```bash
+gh workflow run tw.yml -R <your-account>/Azurlane-Build
 ```
 
 ---
-## 预览
-![Screenshot_2025-11-23-09-17-23-266_com bilibili azurlane](https://github.com/user-attachments/assets/3d57e120-2444-4a6d-8e0c-afb44f76a9b8)
 
----
-## 🚧 已知问题
-以下问题将不会被解决：
+## 📦 安裝說明
 
-- **韩服**：启动无响应，可能触发反作弊机制。
-- **华为服**：启动界面卡顿，疑似由于签名验证问题导致HMS Core初始化失败。
+1. 下載 Release 中所有 `TW-V.x.x.x.7z.00*` 分卷
+2. 用 7-Zip 解壓 `.7z.001` 即可（會自動合併分卷）
+3. 取得 `.xapk` 後安裝（需 XAPK 安裝器，例如 APKPure App 或 SAI）
 
 ---
 
-## 📚 致谢
+## 🔧 版本對照
 
-1. [JMBQ/azurlane](https://github.com/JMBQ/azurlane)  
-2. [n0k0m3/PerseusCI](https://github.com/n0k0m3/PerseusCI)
+- **MOD 補丁版本**：Release tag 為 `{版本}-XAPK`，對照 [JMBQ/azurlane releases](https://github.com/JMBQ/azurlane/releases/latest)
+- **遊戲本體版本**：檔名 `TW-V.{版本}.7z.001` 即 Google Play 當下最新版
 
 ---
 
-## 📊 Star历史
+## 📚 致謝
 
-[![Star History Chart](https://starchart.cc/Chtholly344/Azurlane-Build.svg?variant=adaptive)](https://starchart.cc/Chtholly344/Azurlane-Build)
+- [Chtholly344/Azurlane-Build](https://github.com/Chtholly344/Azurlane-Build) — 原始構建腳本
+- [JMBQ/azurlane](https://github.com/JMBQ/azurlane) — MOD 補丁
+- [n0k0m3/PerseusCI](https://github.com/n0k0m3/PerseusCI)

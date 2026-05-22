@@ -1,0 +1,44 @@
+name: Build TW (One-Click)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v3.3.0
+        with:
+          java-version: "17"
+          distribution: "adopt"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install build-tools
+        run: |
+          yes | sdkmanager --install "build-tools;35.0.0"
+
+      - name: Build TW XAPK
+        run: |
+          chmod +x merge_build.sh
+          ./merge_build.sh "TW"
+
+      - name: Release and Upload Assets
+        uses: ncipollo/release-action@v1
+        with:
+          tag: "${{ env.JMBQ_VERSION }}-XAPK"
+          name: "AzurLane JMBQ ${{ env.JMBQ_VERSION }} Build XAPK"
+          artifacts: "TW-V.${{ env.VERSION }}.7z.*"
+          allowUpdates: true
+          body: |
+            TW 服自動構建
+            遊戲版本: ${{ env.VERSION }}
+            MOD 版本: ${{ env.JMBQ_VERSION }}
